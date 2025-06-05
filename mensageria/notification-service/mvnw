@@ -152,6 +152,47 @@ if [ -d "$MAVEN_HOME" ]; then
   exec_maven "$@"
 fi
 
+# Validate distributionUrl format and allowed domains
+validate_url() {
+  local url="$1"
+  # Check if it's a valid URL format (must start with http:// or https://)
+  case "$url" in
+    http://* | https://*) ;;
+    *) return 1 ;;
+  esac
+  
+  # Check for allowed domains (whitelist approach)
+  case "$url" in
+    https://repo.maven.apache.org/* | https://repo1.maven.org/* | https://repo.eclipse.org/* | https://dlcdn.apache.org/* | https://archive.apache.org/*) ;;
+    *) return 2 ;;
+  esac
+  
+  # Check file extension
+  case "$url" in
+    *?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+    *) return 3 ;;
+  esac
+  
+  # Check for potential command injection characters
+  case "$url" in
+    *\`* | *\$\(* | *\&* | *\|* | *\;* | *\<* | *\>*) return 4 ;;
+    *) ;;
+  esac
+  
+  return 0
+}
+
+# Validate the distributionUrl
+if ! validate_url "${distributionUrl-}"; then
+  case $? in
+    1) die "distributionUrl is not valid, must start with http:// or https://" ;;
+    2) die "distributionUrl domain is not in the allowed list. Only repo.maven.apache.org, repo1.maven.org, repo.eclipse.org, dlcdn.apache.org, and archive.apache.org are allowed" ;;
+    3) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+    4) die "distributionUrl contains potentially dangerous characters" ;;
+  esac
+fi
+
+# Also validate the extension format
 case "${distributionUrl-}" in
 *?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
 *) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
