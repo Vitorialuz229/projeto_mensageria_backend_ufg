@@ -1,0 +1,13 @@
+package com.github.vitorialuz229;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class Vitorialuz229Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Vitorialuz229Application.class, args);
+    }
+
+}
