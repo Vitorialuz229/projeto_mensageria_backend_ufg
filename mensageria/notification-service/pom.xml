@@ -12,19 +12,27 @@
     <artifactId>notification-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>notification-service</name>
-    <description>notification-service</description>
-    <url/>
+    <description>Serviço de notificação do sistema de mensageria que envia alertas sobre o status de pedidos utilizando Apache Kafka</description>
+    <url>https://github.com/vitorialuz229/mensageria-microservices</url>
     <licenses>
-        <license/>
+        <license>
+            <name>MIT License</name>
+        </license>
     </licenses>
     <developers>
-        <developer/>
+        <developer>
+            <name>Vitoria Luz</name>
+            <email>vitorialuz229@github.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
     </developers>
     <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
+        <connection>scm:git:git://github.com/vitorialuz229/mensageria-microservices.git</connection>
+        <developerConnection>scm:git:ssh://github.com:vitorialuz229/mensageria-microservices.git</developerConnection>
+        <tag>main</tag>
+        <url>https://github.com/vitorialuz229/mensageria-microservices</url>
     </scm>
     <properties>
         <java.version>17</java.version>
