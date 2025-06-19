@@ -1,13 +1,15 @@
 package com.github.vitorialuz229.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.UUID;
+import java.util.List;
+
+import com.github.vitorialuz229.model.Review;
 
 @Entity
 @Table(name = "produto")
@@ -25,59 +27,23 @@ public class Produto {
 
     private String descricao;
 
+    private String category;
+
     private BigDecimal preco;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @ElementCollection
+    @CollectionTable(name = "produto_tags", joinColumns = @JoinColumn(name = "produto_id"))
+    @Column(name = "tag")
+    private List<String> tags;
+
+    @ElementCollection
+    @CollectionTable(name = "produto_images", joinColumns = @JoinColumn(name = "produto_id"))
+    @Column(name = "image")
+    private List<String> images;
 
     @Column(name = "estoque_quantidade")
     private Integer estoqueQuantidade;
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public Integer getEstoque_quantidade() {
-        return estoque_quantidade;
-    }
-
-    public void setEstoque_quantidade(Integer estoque_quantidade) {
-        this.estoque_quantidade = estoque_quantidade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
-    }
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 }

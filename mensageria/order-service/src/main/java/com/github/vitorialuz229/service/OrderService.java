@@ -26,11 +26,11 @@ public class OrderService {
             Produto produto = produtoRepository.findById(productId)
                     .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + productId));
 
-            if (produto.getEstoque_quantidade() < item.getQuantity()) {
+            if (produto.getEstoqueQuantidade() < item.getQuantity()) {
                 throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
             }
 
-            produto.setEstoque_quantidade(produto.getEstoque_quantidade() - item.getQuantity());
+            produto.setEstoqueQuantidade(produto.getEstoqueQuantidade() - item.getQuantity());
             produtoRepository.save(produto);
         }
 
@@ -41,6 +41,7 @@ public class OrderService {
         order.setOrderItems(items);
 
         Order savedOrder = orderRepository.save(order);
+
         orderProducer.sendOrder(savedOrder);
 
         return savedOrder;

@@ -23,6 +23,7 @@ services:
     build: mensageria/order-service
     ports:
       - "8081:8080"
+      - "5005:5005"
     depends_on:
       - kafka
     environment:
@@ -35,6 +36,7 @@ services:
     build: mensageria/inventory-service
     ports:
       - "8082:8080"
+      - "5005:5005"
     depends_on:
       - kafka
     environment:
@@ -47,6 +49,7 @@ services:
     build: mensageria/notification-service
     ports:
       - "8083:8080"
+      - "5005:5005"
     depends_on:
       - kafka
     environment:
@@ -54,6 +57,3 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
-
-volumes:
-  postgres_data:
