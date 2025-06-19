@@ -22,8 +22,15 @@ public class Order {
     private UUID orderId;
 
     @Column(name = "order_date", nullable = false)
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.orderDate == null) {
+            this.orderDate = LocalDateTime.now();
+        }
+    }
 }

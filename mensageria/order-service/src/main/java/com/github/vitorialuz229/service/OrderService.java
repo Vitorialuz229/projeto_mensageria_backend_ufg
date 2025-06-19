@@ -21,29 +21,33 @@ public class OrderService {
     private final OrderProducer orderProducer;
 
     public Order createOrder(List<OrderItem> items) {
-        for (OrderItem item : items) {
-            UUID productId = item.getProduto().getId();
-            Produto produto = produtoRepository.findById(productId)
-                    .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + productId));
+        try {
+            for (OrderItem item : items) {
+                UUID productId = item.getProduto().getId();
+                Produto produto = produtoRepository.findById(productId)
+                        .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + productId));
 
-            if (produto.getEstoqueQuantidade() < item.getQuantity()) {
-                throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
+                if (produto.getEstoqueQuantidade() < item.getQuantity()) {
+                    throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
+                }
+
+                produto.setEstoqueQuantidade(produto.getEstoqueQuantidade() - item.getQuantity());
+                produtoRepository.save(produto);
             }
 
-            produto.setEstoqueQuantidade(produto.getEstoqueQuantidade() - item.getQuantity());
-            produtoRepository.save(produto);
+            Order order = new Order();
+            for (OrderItem item : items) {
+                item.setOrder(order);
+            }
+            order.setOrderItems(items);
+
+            Order savedOrder = orderRepository.save(order);
+            orderProducer.sendOrder(savedOrder);
+            return savedOrder;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
         }
-
-        Order order = new Order();
-        for (OrderItem item : items) {
-            item.setOrder(order);
-        }
-        order.setOrderItems(items);
-
-        Order savedOrder = orderRepository.save(order);
-
-        orderProducer.sendOrder(savedOrder);
-
-        return savedOrder;
     }
 }
