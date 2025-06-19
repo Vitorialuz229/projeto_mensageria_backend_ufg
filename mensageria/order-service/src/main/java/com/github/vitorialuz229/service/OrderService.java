@@ -4,6 +4,9 @@ import com.github.vitorialuz229.kafka.OrderProducer;
 import com.github.vitorialuz229.model.Order;
 import com.github.vitorialuz229.model.OrderItem;
 import com.github.vitorialuz229.model.Produto;
+import com.github.vitorialuz229.DTO.OrderItemDTO;
+import com.github.vitorialuz229.DTO.OrderDTO;
+
 import com.github.vitorialuz229.repository.OrderRepository;
 import com.github.vitorialuz229.repository.ProdutoRepository;
 import lombok.RequiredArgsConstructor;
@@ -42,12 +45,21 @@ public class OrderService {
             order.setOrderItems(items);
 
             Order savedOrder = orderRepository.save(order);
-            orderProducer.sendOrder(savedOrder);
+            OrderDTO orderDto = convertToDto(savedOrder);
+            orderProducer.sendOrder(orderDto);
             return savedOrder;
 
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
+    }
+
+    public OrderDTO convertToDto(Order order) {
+        List<OrderItemDTO> itemsDto = order.getOrderItems().stream()
+                .map(item -> new OrderItemDTO(item.getProduto().getId(), item.getQuantity()))
+                .toList();
+
+        return new OrderDTO(order.getOrderId(), order.getOrderDate(), itemsDto);
     }
 }
