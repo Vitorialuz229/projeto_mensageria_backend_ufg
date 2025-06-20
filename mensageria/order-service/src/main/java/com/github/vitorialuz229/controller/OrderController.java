@@ -1,6 +1,6 @@
 package com.github.vitorialuz229.controller;
 
-import com.github.vitorialuz229.model.Order;
+import com.github.vitorialuz229.DTO.OrderDTO;
 import com.github.vitorialuz229.model.OrderItem;
 import com.github.vitorialuz229.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody List<OrderItem> items) {
-        Order savedOrder = orderService.createOrder(items);
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody List<OrderItem> items) {
+        OrderDTO savedOrder = orderService.createOrder(items);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
