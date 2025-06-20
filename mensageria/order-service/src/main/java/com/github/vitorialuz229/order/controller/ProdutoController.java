@@ -1,10 +1,11 @@
 package com.github.vitorialuz229.order.controller;
 
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.github.vitorialuz229.service.ProdutoService;
+import com.github.vitorialuz229.order.service.ProdutoService;
 
 @RestController
 @RequestMapping("/produtos")

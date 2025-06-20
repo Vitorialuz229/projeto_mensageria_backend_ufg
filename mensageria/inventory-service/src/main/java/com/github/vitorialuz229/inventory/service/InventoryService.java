@@ -24,6 +24,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class InventoryService {
 
     private final ProdutoEstoqueRepository estoqueRepository;

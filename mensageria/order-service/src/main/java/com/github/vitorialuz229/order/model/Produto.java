@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-import com.github.vitorialuz229.model.Review;
+import com.github.vitorialuz229.order.model.Review;
 
 @Entity
 @Table(name = "produto")

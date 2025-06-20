@@ -1,12 +1,16 @@
 package com.github.vitorialuz229.order.service;
 
-import com.github.vitorialuz229.DTO.ProdutoDTO;
-import com.github.vitorialuz229.DTO.ProdutoResponseDTO;
-import com.github.vitorialuz229.DTO.ReviewDTO;
-import com.github.vitorialuz229.model.Produto;
-import com.github.vitorialuz229.model.Review;
-import com.github.vitorialuz229.repository.ProdutoRepository;
+import com.github.vitorialuz229.order.DTO.ProdutoDTO;
+import com.github.vitorialuz229.order.DTO.ProdutoResponseDTO;
+import com.github.vitorialuz229.order.DTO.ReviewDTO;
+
+import com.github.vitorialuz229.order.model.Produto;
+import com.github.vitorialuz229.order.model.Review;
+
+import com.github.vitorialuz229.order.repository.ProdutoRepository;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -60,4 +64,6 @@ public class ProdutoService {
             }
         }
     }
+
+
 }

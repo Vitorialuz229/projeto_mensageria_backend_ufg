@@ -1,9 +1,11 @@
 package com.github.vitorialuz229.order.controller;
 
-import com.github.vitorialuz229.DTO.OrderDTO;
-import com.github.vitorialuz229.model.OrderItem;
-import com.github.vitorialuz229.service.OrderService;
+import com.github.vitorialuz229.order.DTO.OrderDTO;
+import com.github.vitorialuz229.order.model.OrderItem;
+import com.github.vitorialuz229.order.service.OrderService;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

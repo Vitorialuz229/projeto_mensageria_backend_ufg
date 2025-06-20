@@ -1,6 +1,5 @@
 package com.github.vitorialuz229.order.DTO;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

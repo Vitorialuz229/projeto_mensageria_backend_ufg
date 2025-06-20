@@ -1,12 +1,12 @@
 package com.github.vitorialuz229.order.DTO;
 
+import com.github.vitorialuz229.order.DTO.ProdutoDTO;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import com.github.vitorialuz229.DTO.ProdutoDTO;
+import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data

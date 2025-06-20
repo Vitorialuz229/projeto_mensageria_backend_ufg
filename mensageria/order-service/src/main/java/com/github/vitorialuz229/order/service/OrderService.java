@@ -1,13 +1,16 @@
 package com.github.vitorialuz229.order.service;
 
-import com.github.vitorialuz229.kafka.OrderProducer;
-import com.github.vitorialuz229.model.Order;
-import com.github.vitorialuz229.model.Produto;
-import com.github.vitorialuz229.model.OrderItem;
-import com.github.vitorialuz229.DTO.OrderDTO;
-import com.github.vitorialuz229.DTO.OrderItemDTO;
-import com.github.vitorialuz229.repository.OrderRepository;
-import com.github.vitorialuz229.repository.ProdutoRepository;
+import com.github.vitorialuz229.order.kafka.OrderProducer;
+
+import com.github.vitorialuz229.order.model.Order;
+import com.github.vitorialuz229.order.model.Produto;
+import com.github.vitorialuz229.order.model.OrderItem;
+
+import com.github.vitorialuz229.order.DTO.OrderDTO;
+import com.github.vitorialuz229.order.DTO.OrderItemDTO;
+
+import com.github.vitorialuz229.order.repository.OrderRepository;
+import com.github.vitorialuz229.order.repository.ProdutoRepository;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -45,9 +49,6 @@ public class OrderService {
             }).toList();
 
             Order order = new Order();
-            order.setOrderId(UUID.randomUUID());
-            order.setOrderDate(LocalDateTime.now());
-
             for (OrderItem item : items) {
                 item.setOrder(order);
             }

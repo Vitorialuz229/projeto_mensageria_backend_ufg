@@ -1,6 +1,6 @@
 package com.github.vitorialuz229.order.repository;
 
-import com.github.vitorialuz229.model.Review;
+import com.github.vitorialuz229.order.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

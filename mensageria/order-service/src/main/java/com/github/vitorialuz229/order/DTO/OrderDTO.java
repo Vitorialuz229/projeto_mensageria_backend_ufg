@@ -1,6 +1,6 @@
 package com.github.vitorialuz229.order.DTO;
 
-import com.github.vitorialuz229.DTO.OrderItemDTO;
+import com.github.vitorialuz229.order.DTO.OrderItemDTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDateTime;
