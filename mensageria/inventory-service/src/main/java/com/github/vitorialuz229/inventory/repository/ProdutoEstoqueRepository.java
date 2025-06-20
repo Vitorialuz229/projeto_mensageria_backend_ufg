@@ -1,6 +1,7 @@
-package com.github.vitorialuz229.repository;
+package com.github.vitorialuz229.inventory.repository;
 
-import com.github.vitorialuz229.model.ProdutoEstoque;
+import com.github.vitorialuz229.inventory.model.ProdutoEstoque;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

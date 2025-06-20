@@ -1,8 +1,8 @@
-package com.github.vitorialuz229.dto;
+package com.github.vitorialuz229.inventory.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 import java.util.UUID;
 

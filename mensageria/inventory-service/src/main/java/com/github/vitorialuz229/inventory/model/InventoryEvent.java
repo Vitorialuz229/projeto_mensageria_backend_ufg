@@ -1,8 +1,10 @@
-package com.github.vitorialuz229.model;
+package com.github.vitorialuz229.inventory.model;
 
-import com.github.vitorialuz229.model.enums.EventStatus;
-import com.github.vitorialuz229.model.InventoryItem;
+import com.github.vitorialuz229.inventory.model.enums.EventStatus;
+import com.github.vitorialuz229.inventory.model.InventoryItem;
+
 import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 

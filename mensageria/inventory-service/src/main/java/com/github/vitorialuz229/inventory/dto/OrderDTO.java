@@ -1,8 +1,11 @@
 package com.github.vitorialuz229.inventory.dto;
 
-import lombok.AllArgsConstructor;
+import com.github.vitorialuz229.inventory.dto.OrderItemDTO;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 
 import java.time.LocalDateTime;
 import java.util.List;

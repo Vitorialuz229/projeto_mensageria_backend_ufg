@@ -2,14 +2,16 @@ package com.github.vitorialuz229.order.service;
 
 import com.github.vitorialuz229.kafka.OrderProducer;
 import com.github.vitorialuz229.model.Order;
-import com.github.vitorialuz229.model.OrderItem;
 import com.github.vitorialuz229.model.Produto;
-import com.github.vitorialuz229.DTO.OrderItemDTO;
+import com.github.vitorialuz229.model.OrderItem;
 import com.github.vitorialuz229.DTO.OrderDTO;
-
+import com.github.vitorialuz229.DTO.OrderItemDTO;
 import com.github.vitorialuz229.repository.OrderRepository;
 import com.github.vitorialuz229.repository.ProdutoRepository;
+
+import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,22 +25,29 @@ public class OrderService {
     private final ProdutoRepository produtoRepository;
     private final OrderProducer orderProducer;
 
-    public OrderDTO createOrder(List<OrderItem> items) {
+    public OrderDTO createOrder(OrderDTO dto) {
         try {
-            for (OrderItem item : items) {
-                UUID productId = item.getProduto().getId();
-                Produto produto = produtoRepository.findById(productId)
-                        .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + productId));
+            List<OrderItem> items = dto.getOrderItems().stream().map(orderItemDTO -> {
+                Produto produto = produtoRepository.findById(orderItemDTO.getProdutoId())
+                        .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + orderItemDTO.getProdutoId()));
 
-                if (produto.getEstoqueQuantidade() < item.getQuantity()) {
-                    throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
+                if (produto.getEstoqueQuantidade() < orderItemDTO.getQuantity()) {
+                    throw new RuntimeException("Estoque insuficiente para produto: " + produto.getNome());
                 }
 
-                produto.setEstoqueQuantidade(produto.getEstoqueQuantidade() - item.getQuantity());
+                produto.setEstoqueQuantidade(produto.getEstoqueQuantidade() - orderItemDTO.getQuantity());
                 produtoRepository.save(produto);
-            }
+
+                OrderItem item = new OrderItem();
+                item.setProduto(produto);
+                item.setQuantity(orderItemDTO.getQuantity());
+                return item;
+            }).toList();
 
             Order order = new Order();
+            order.setOrderId(UUID.randomUUID());
+            order.setOrderDate(LocalDateTime.now());
+
             for (OrderItem item : items) {
                 item.setOrder(order);
             }
@@ -50,8 +59,8 @@ public class OrderService {
             return orderDto;
 
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            log.error("Erro ao criar pedido: {}", e.getMessage(), e);
+            throw new RuntimeException("Erro ao processar pedido: " + e.getMessage());
         }
     }
 

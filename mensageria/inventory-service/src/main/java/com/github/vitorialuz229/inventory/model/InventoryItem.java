@@ -1,6 +1,6 @@
-package com.github.vitorialuz229.model;
+package com.github.vitorialuz229.inventory.model;
 
-import com.github.vitorialuz229.model.InventoryEvent;
+import com.github.vitorialuz229.inventory.model.InventoryEvent;
 
 import jakarta.persistence.*;
 import lombok.Getter;
