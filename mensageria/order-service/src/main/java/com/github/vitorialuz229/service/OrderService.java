@@ -23,7 +23,7 @@ public class OrderService {
     private final ProdutoRepository produtoRepository;
     private final OrderProducer orderProducer;
 
-    public Order createOrder(List<OrderItem> items) {
+    public OrderDTO createOrder(List<OrderItem> items) {
         try {
             for (OrderItem item : items) {
                 UUID productId = item.getProduto().getId();
@@ -47,7 +47,7 @@ public class OrderService {
             Order savedOrder = orderRepository.save(order);
             OrderDTO orderDto = convertToDto(savedOrder);
             orderProducer.sendOrder(orderDto);
-            return savedOrder;
+            return orderDto;
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.github.vitorialuz229.config;
 
-import com.github.vitorialuz229.model.Order;
+import com.github.vitorialuz229.DTO.OrderDTO;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class KafkaProducerConfig {
     private String bootstrapServers;
 
     @Bean
-    public ProducerFactory<String, Order> producerFactory() {
+    public ProducerFactory<String, OrderDTO> orderDtoProducerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -30,8 +30,8 @@ public class KafkaProducerConfig {
         return new DefaultKafkaProducerFactory<>(config);
     }
 
-    @Bean
-    public KafkaTemplate<String, Order> kafkaTemplate() {
-        return new KafkaTemplate<>(producerFactory());
+    @Bean(name = "orderDtoKafkaTemplate")
+    public KafkaTemplate<String, OrderDTO> orderDtoKafkaTemplate() {
+        return new KafkaTemplate<>(orderDtoProducerFactory());
     }
 }
