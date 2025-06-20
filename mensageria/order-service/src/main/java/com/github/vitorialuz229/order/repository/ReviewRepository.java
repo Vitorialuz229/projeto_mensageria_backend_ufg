@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.repository;
+package com.github.vitorialuz229.order.repository;
 
 import com.github.vitorialuz229.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;

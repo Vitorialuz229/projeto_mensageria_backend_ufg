@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.kafka;
+package com.github.vitorialuz229.order.kafka;
 
 import com.github.vitorialuz229.DTO.OrderDTO;
 

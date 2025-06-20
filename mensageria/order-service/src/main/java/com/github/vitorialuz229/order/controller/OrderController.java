@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.controller;
+package com.github.vitorialuz229.order.controller;
 
 import com.github.vitorialuz229.DTO.OrderDTO;
 import com.github.vitorialuz229.model.OrderItem;

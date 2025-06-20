@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.controller;
+package com.github.vitorialuz229.order.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.model;
+package com.github.vitorialuz229.order.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;

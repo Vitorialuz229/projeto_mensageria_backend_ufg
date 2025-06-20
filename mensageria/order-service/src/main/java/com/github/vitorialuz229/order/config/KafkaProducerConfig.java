@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.config;
+package com.github.vitorialuz229.order.config;
 
 import com.github.vitorialuz229.DTO.OrderDTO;
 import org.apache.kafka.clients.producer.ProducerConfig;

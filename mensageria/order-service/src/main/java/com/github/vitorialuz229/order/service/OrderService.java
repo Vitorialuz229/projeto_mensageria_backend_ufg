@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.service;
+package com.github.vitorialuz229.order.service;
 
 import com.github.vitorialuz229.kafka.OrderProducer;
 import com.github.vitorialuz229.model.Order;

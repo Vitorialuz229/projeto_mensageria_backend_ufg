@@ -1,4 +1,4 @@
-package com.github.vitorialuz229.service;
+package com.github.vitorialuz229.order.service;
 
 import com.github.vitorialuz229.DTO.ProdutoDTO;
 import com.github.vitorialuz229.DTO.ProdutoResponseDTO;
