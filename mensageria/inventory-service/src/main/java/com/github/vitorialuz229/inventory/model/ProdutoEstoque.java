@@ -16,7 +16,7 @@ public class ProdutoEstoque {
     @GeneratedValue(strategy=GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @JoinColumn(name = "produto_id", nullable = false)
     private UUID produtoId;
 
     @Column(nullable = false)

@@ -1,4 +1,4 @@
-package com.github.inventoryservice;
+package com.github.vitorialuz229;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -83,7 +83,11 @@ public class InventoryService {
         event.setItems(items);
         eventRepository.save(event);
 
+        System.out.println("Recebendo pedido no serviço: " + orderDTO);
+
         InventoryEventDTO eventDTO = InventoryEventDTO.fromEntity(event);
+        System.out.println("Enviando evento para o Kafka: " + eventDTO);
         producer.sendInventoryEvent(eventDTO);
+        System.out.println("Evento enviado para o Kafka.");
     }
 }
