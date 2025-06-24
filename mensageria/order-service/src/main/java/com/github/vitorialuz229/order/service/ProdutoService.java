@@ -24,6 +24,36 @@ import java.util.stream.Collectors;
 public class ProdutoService {
     private final ProdutoRepository produtoRepository;
 
+    public List<ProdutoDTO> listarProdutos() {
+        List<Produto> produtos = produtoRepository.findAll();
+        return produtos.stream()
+                .map(p -> new ProdutoDTO(
+                        p.getId(),
+                        p.getNome(),
+                        p.getDescricao(),
+                        p.getCategory(),
+                        p.getPreco() != null ? p.getPreco().doubleValue() : null,
+                        p.getEstoqueQuantidade() != null ? p.getEstoqueQuantidade() : 0,
+                        p.getTags(),
+                        p.getReviews() != null
+                                ? p.getReviews().stream().map(this::mapReviewToDTO).toList()
+                                : List.of(),
+                        p.getImages()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    private ReviewDTO mapReviewToDTO(Review review) {
+        return new ReviewDTO(
+                review.getId(),
+                review.getRating(),
+                review.getComment(),
+                review.getDate(),
+                review.getReviewerName(),
+                review.getReviewerEmail()
+        );
+    }
+
     public void importarProdutos() {
         RestTemplate restTemplate = new RestTemplate();
         ProdutoResponseDTO response = restTemplate.getForObject(
@@ -64,6 +94,4 @@ public class ProdutoService {
             }
         }
     }
-
-
 }

@@ -14,7 +14,7 @@ spring:
   kafka:
     bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS}
     consumer:
-      group-id: my-group
+      group-id: ${KAFKA_CONSUMER_GROUP}
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -28,3 +28,7 @@ logging:
     org.springframework.web: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
