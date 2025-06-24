@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,27 @@ public class ProdutoService {
                         p.getImages()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    public ProdutoDTO buscarProdutoPorId(UUID id) {
+        Optional<Produto> produtoOpt = produtoRepository.findById(id);
+        if (produtoOpt.isEmpty()) {
+            throw new RuntimeException("Produto não encontrado com id: " + id);
+        }
+        Produto p = produtoOpt.get();
+        return new ProdutoDTO(
+                p.getId(),
+                p.getNome(),
+                p.getDescricao(),
+                p.getCategory(),
+                p.getPreco() != null ? p.getPreco().doubleValue() : null,
+                p.getEstoqueQuantidade() != null ? p.getEstoqueQuantidade() : 0,
+                p.getTags(),
+                p.getReviews() != null
+                        ? p.getReviews().stream().map(this::mapReviewToDTO).toList()
+                        : List.of(),
+                p.getImages()
+        );
     }
 
     private ReviewDTO mapReviewToDTO(Review review) {
